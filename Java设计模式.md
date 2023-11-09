@@ -7145,11 +7145,11 @@ spring中bean用于对一个类进行封装。如下面的配置：
 
 
 
-## 7.3 Spring IOC相关接口分析
+## 7.3 Spring IoC相关接口分析
 
 ### 7.3.1 BeanFactory解析
 
-**Spring中Bean的创建是典型的工厂模式，这一系列的Bean工厂，即IOC容器**，为开发者管理对象之间的依赖关系提供了很多便利和基础服务，在Spring中有许多IOC容器的实现供用户选择，其相互关系如下图所示。
+**Spring中Bean的创建是典型的工厂模式，这一系列的Bean工厂，即IoC(控制反转)容器**，为开发者管理对象之间的依赖关系提供了很多便利和基础服务，在Spring中有许多IOC容器的实现供用户选择，其相互关系如下图所示。
 
 <img src="image/Java设计模式.assets/image-20200429185050396.png" style="zoom:60%;" />
 
@@ -7369,9 +7369,7 @@ ClassPathXmlApplicationContext对Bean配置资源的载入是从refresh（）方
 
 
 
-
-
-## 7.4 自定义Spring IOC
+## 7.4 自定义Spring IoC
 
 ### 7.4.1 定义bean相关的pojo类
 
@@ -7903,9 +7901,9 @@ public class StringUtils {
 
 
 
-### 7.4.5 自定义Spring IOC总结
+### 7.4.5 自定义Spring IoC总结
 
-#### 7.4.5.1 测试自定义Spring IOC
+#### 7.4.5.1 测试自定义Spring IoC
 
 在maven中，选择itheima_spring，在lifecycle中双击install安装依赖
 
@@ -7946,7 +7944,7 @@ public class UserControllerByCustomSpring {
 #### 7.4.5.2 使用到的设计模式
 
 * 工厂模式。这个使用**简单工厂模式 + 配置文件**的方式。
-* **单例模式**。Spring IOC管理的bean对象都是单例的，此处的单例不是通过构造器进行单例的控制的，而是spring框架对每一个bean只创建了一个对象。
+* **单例模式**。Spring IoC管理的bean对象都是单例的，此处的单例不是通过构造器进行单例的控制的，而是spring框架对每一个bean只创建了一个对象。
 * **模板方法模式**。AbstractApplicationContext类中的finishBeanInitialization()方法调用了子类的getBean()方法，因为getBean()的实现和环境息息相关。
 * **迭代器模式**。对于MutablePropertyValues类定义使用到了迭代器模式，因为此类存储并管理PropertyValue对象，也属于一个容器，所以给该容器提供一个遍历方式。
 
@@ -7958,7 +7956,7 @@ spring框架其实使用到了很多设计模式，如**AOP使用到了代理模
 
 #### 7.4.5.4 整个设计和Spring的设计还是有一定的出入
 
-spring框架底层是很复杂的，进行了很深入的封装，并对外提供了很好的扩展性。而我们自定义SpringIOC有以下几个目的：
+spring框架底层是很复杂的，进行了很深入的封装，并对外提供了很好的扩展性。而我们自定义SpringIoC有以下几个目的：
 
 * 了解Spring底层对对象的大体管理机制。
 * 了解设计模式在具体的开发中的使用。
