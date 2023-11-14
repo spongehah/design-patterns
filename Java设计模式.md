@@ -7159,7 +7159,7 @@ spring中bean用于对一个类进行封装。如下面的配置：
 
 每个接口都有它的使用场合，主要是为了区分在Spring内部操作过程中对象的传递和转化，对对象的数据访问所做的限制。例如，
 
-* ListableBeanFactory接口表示这些Bean可列表化。
+* ListableBeanFactory接口表示这些Bean可列表化(可获取多个Bean)。因为最顶层 BeanFactory 接口的方法都是获取单个 Bean 的
 * HierarchicalBeanFactory表示这些Bean 是有继承关系的，也就是每个 Bean 可能有父 Bean
 * AutowireCapableBeanFactory 接口定义Bean的自动装配规则。
 
@@ -7363,7 +7363,7 @@ ClassPathXmlApplicationContext对Bean配置资源的载入是从refresh（）方
   }
   ```
 
-  **refresh()**方法做的事：简单来说就是**加载配置文件，并且初始化Bean对象，将Bean对象存储在容器里**
+  **refresh()**方法做的事：简单来说就是**加载配置文件，封装、注册BeanDefinition，并且初始化Bean对象，将Bean对象存储在容器里**
 
 
 
@@ -7781,11 +7781,11 @@ public abstract class AbstractApplicationContext implements ApplicationContext {
         beanDefinitionReader.loadBeanDefinitions(configLocation);
 
         //初始化bean
-        finishBeanInitialization();
+        finishBeanFactoryInitialization();
     }
 
     //bean的初始化
-    private void finishBeanInitialization() throws Exception {
+    private void finishBeanFactoryInitialization() throws Exception {
         BeanDefinitionRegistry registry = beanDefinitionReader.getRegistry();
         String[] beanNames = registry.getBeanDefinitionNames();
 
