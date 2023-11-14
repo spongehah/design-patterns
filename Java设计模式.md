@@ -5538,6 +5538,8 @@ public class Client {
 
 在 Java 中，通过 java.util.Observable 类和 java.util.Observer 接口定义了观察者模式，只要实现它们的子类就可以编写观察者模式实例。
 
+> 这两个类在JDK9被deprecated，取而代之的使Flow类(包含发布订阅方法)
+
 **1，Observable类**
 
 Observable 类是抽象目标类（被观察者），它有一个 Vector 集合成员变量，用于保存所有要通知的观察者对象，下面来介绍它最重要的 3 个方法。
@@ -7097,7 +7099,7 @@ Spring大约有20个模块，由1300多个不同的文件构成。这些模块�
 
 核心容器由 beans、core、context 和 expression（Spring Expression Language，SpEL）4个模块组成。
 
-* spring-beans和spring-core模块是Spring框架的核心模块，包含了控制反转（Inversion of Control，IOC）和依赖注入（Dependency Injection，DI）。BeanFactory使用控制反转对应用程序的配置和依赖性规范与实际的应用程序代码进行了分离。**BeanFactory属于延时加载**，也就是说在实例化容器对象后并不会自动实例化Bean，**只有当Bean被使用时，BeanFactory才会对该 Bean** 进行实例化与依赖关系的装配。
+* spring-beans和spring-core模块是Spring框架的核心模块，包含了控制反转（Inversion of Control，IOC）和依赖注入（Dependency Injection，DI）。BeanFactory使用控制反转对应用程序的配置和依赖性规范与实际的应用程序代码进行了分离。**BeanFactory属于延时加载**，也就是说在实例化容器对象后并不会自动实例化Bean，**只有当Bean被使用时，BeanFactory才会对该 Bean** 进行实例化与依赖关系的装配。（是Spring内部的使用接口，不提供开发人员进行使用）
 
 * spring-context模块构架于核心模块之上，扩展了BeanFactory，为它添加了Bean生命周期控制、框架事件体系及资源加载透明化等功能。此外，该模块还提供了许多企业级支持，如邮件访问、远程访问、任务调度等，**ApplicationContext 是该模块的核心接口，它的超类是 BeanFactory**。与BeanFactory不同，**ApplicationContext实例化后会自动对所有的单实例Bean进行实例化与依赖关系的装配(与BeanFactory对立)**，使之处于待用状态。
 
@@ -7153,7 +7155,7 @@ spring中bean用于对一个类进行封装。如下面的配置：
 
 <img src="image/Java设计模式.assets/image-20200429185050396.png" style="zoom:60%;" />
 
-其中，BeanFactory作为最顶层的一个接口，定义了IoC容器的基本功能规范，BeanFactory有三个重要的子接口：ListableBeanFactory、HierarchicalBeanFactory和AutowireCapableBeanFactory。但是从类图中我们可以发现最终的默认实现类是DefaultListableBeanFactory，它实现了所有的接口。
+其中，BeanFactory作为最顶层的一个接口，定义了IoC容器的基本功能规范，BeanFactory有三个重要的子接口：ListableBeanFactory、HierarchicalBeanFactory和AutowireCapableBeanFactory。但是从类图中我们可以发现最终的默认实现类是**DefaultListableBeanFactory**，它实现了所有的接口。
 
 那么为何要定义这么多层次的接口呢？
 
@@ -7945,7 +7947,7 @@ public class UserControllerByCustomSpring {
 
 * 工厂模式。这个使用**简单工厂模式 + 配置文件**的方式。
 * **单例模式**。Spring IoC管理的bean对象都是单例的，此处的单例不是通过构造器进行单例的控制的，而是spring框架对每一个bean只创建了一个对象。
-* **模板方法模式**。AbstractApplicationContext类中的finishBeanInitialization()方法调用了子类的getBean()方法，因为getBean()的实现和环境息息相关。
+* **模板方法模式**。AbstractApplicationContext类中的finishBeanFactoryInitialization()方法调用了子类的getBean()方法，因为getBean()的实现和环境息息相关。
 * **迭代器模式**。对于MutablePropertyValues类定义使用到了迭代器模式，因为此类存储并管理PropertyValue对象，也属于一个容器，所以给该容器提供一个遍历方式。
 
 spring框架其实使用到了很多设计模式，如**AOP使用到了代理模式**，选择JDK代理或者CGLIB代理使用到了**策略模式**，还有**适配器模式，装饰者模式，观察者模式**等。
